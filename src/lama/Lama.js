@@ -4,29 +4,16 @@ import { Link } from "react-router-dom";
 
 import { loadLama, updateLama, removeLama } from "../store/actions";
 
-const listStyle = {
-  listStyle: "none",
-  margin: 0,
-  padding: 0
-};
-const listItemStyle = {
-  padding: "6px 12px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
-const iconStyle = {
-  width: "24px",
-  height: "24px"
-};
-const linkStyle = {
-  textDecoration: "none",
-  color: "rgb(108, 174, 221)"
-};
+import { listStyle, listItemStyle, deleteButtonStyle } from '../styles';
+import Icon from '../Icon';
 
 class Lama extends React.Component {
   componentWillMount() {
     this.props.loadLama(this.props.match.params.id);
+  }
+
+  removeLama(id) {
+    this.props.removeLama(id);
   }
 
   render() {
@@ -35,11 +22,7 @@ class Lama extends React.Component {
     const template = lama ? (
       <div>
         <h1 style={listItemStyle}>
-          <img
-            style={iconStyle}
-            src="https://uploads.codesandbox.io/uploads/user/664bc7f2-473d-4189-ad79-acd1c2d928bd/HHBh-Alpaca-512.png"
-            alt={lama.name}
-          />
+          <Icon src="lama.png" name={lama.name} />
           {lama.name}
         </h1>
         <ul style={listStyle}>
@@ -52,6 +35,9 @@ class Lama extends React.Component {
             </li>
           ))}
         </ul>
+        <button style={deleteButtonStyle} onClick={() => this.removeLama(lama.id)}>
+          <Icon src="delete.svg" />
+        </button>
       </div>
     ) : (
       <p>Lama not found</p>

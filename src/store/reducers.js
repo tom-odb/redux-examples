@@ -1,7 +1,4 @@
-const LAMAS_INITIAL_STATE = {
-  list: [],
-  detail: null
-};
+import { LAMAS_INITIAL_STATE } from './initial-state';
 
 export const lamasReducer = (state = LAMAS_INITIAL_STATE, action) => {
   if (action.type === "LAMAS/LOAD") {
@@ -39,7 +36,7 @@ export const lamasReducer = (state = LAMAS_INITIAL_STATE, action) => {
   if (action.type === "LAMAS/REMOVE") {
     return {
       list: state.list.filter(lama => lama.id !== action.id),
-      detail: state.detail.id === action.id ? null : state.detail
+      detail: state.detail && state.detail.id === action.id ? null : state.detail
     };
   }
 
